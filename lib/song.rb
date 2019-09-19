@@ -1,7 +1,9 @@
 require_relative './concerns/findable.rb'
+require_relative './concerns/memorable.rb'
 
 class Song
-  extend Concerns::Findable
+  extend Concerns::Findable, Memorable::ClassMethods
+  include Memorable::InstanceMethods
   attr_accessor :name, :artist, :genre
   @@all = []
   
@@ -25,9 +27,9 @@ class Song
     genre.add_song(self)
   end
   
-  def save
-    @@all << self
-  end
+#  def save
+#    @@all << self
+#  end
   
   def self.create(name, artist=nil, genre=nil)
     song = Song.new(name, artist, genre)
@@ -50,9 +52,9 @@ class Song
     song
   end
   
-  def self.all
-    @@all
-  end
+#  def self.all
+#    @@all
+#  end
   
   def self.destroy_all
     @@all.clear

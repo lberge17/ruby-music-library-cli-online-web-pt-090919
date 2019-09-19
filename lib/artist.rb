@@ -1,7 +1,9 @@
 require_relative './concerns/findable.rb'
+require_relative './concerns/memorable.rb'
 
 class Artist
-  extend Concerns::Findable
+  extend Concerns::Findable, Memorable::ClassMethods
+  include Memorable::InstanceMethods
   attr_accessor :name
   attr_reader :songs
   @@all = []
@@ -15,9 +17,9 @@ class Artist
     songs.map{|song| song.genre}.uniq
   end
   
-  def save
-    @@all << self
-  end
+#  def save
+#    @@all << self
+#  end
   
   def add_song(song)
     song.artist = self if song.artist == nil
